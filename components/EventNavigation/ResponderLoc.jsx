@@ -134,17 +134,31 @@ const ResponderLoc = ({ incident }) => {
     const clientId = localStorage.getItem('clientId') || 'client-' + Math.random().toString(36).substr(2, 9);
     localStorage.setItem('clientId', clientId);
     
-    const socketUrl = typeof window !== 'undefined' 
-      ? window.location.origin + '/socket'
-      : 'http://localhost:5000';
-      
+    // First try production URL, fallback to localhost if not available
+    const socketUrl = 'http://localhost:5000';
+    console.log('Connecting to socket server at:', socketUrl);
+    
     const newSocket = io(socketUrl, {
       auth: { clientId },
-      reconnection: false,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      transports: ['websocket', 'polling'],
+      withCredentials: true
     });
+    
     socketRef.current = newSocket;
 
-    console.log('Socket initialized with clientId:', clientId);
+    // Add error handling
+    newSocket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+      setError('Unable to connect to tracking server. Please try again later.');
+    });
+
+    newSocket.on('connect_timeout', () => {
+      console.error('Socket connection timeout');
+      setError('Connection timeout. Please check your internet connection.');
+    });
 
     newSocket.removeAllListeners();
 

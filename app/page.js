@@ -5,7 +5,7 @@ import CategorySearch from "@/components/CategorySearch";
 import {useState,useEffect} from 'react'
 import GlobalApi from '@/Shared/GlobalApi';
 import ActiveEvents from "@/components/EventNavigation/ActiveEvents";
-import EventModal from "@/components/EventNavigation/EventModal";
+import EventModal from "../components/EventNavigation/EventModal";
 
 export default function Home() {
   const [category,setcategory]=useState("Hospitals")

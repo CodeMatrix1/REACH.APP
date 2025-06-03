@@ -11,15 +11,19 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
+    origin: ["http://localhost:3000", "https://reach-app-nocode.netlify.app"],
+    methods: ["GET", "POST"],
+    credentials: true
   },
   pingTimeout: 2000,
   pingInterval: 5000
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000", "https://reach-app-nocode.netlify.app"],
+  credentials: true
+}));
 app.use(express.json());
 
 // Store client-to-socket mapping to prevent duplicates
