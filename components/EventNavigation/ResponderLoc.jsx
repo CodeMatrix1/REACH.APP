@@ -134,7 +134,11 @@ const ResponderLoc = ({ incident }) => {
     const clientId = localStorage.getItem('clientId') || 'client-' + Math.random().toString(36).substr(2, 9);
     localStorage.setItem('clientId', clientId);
     
-    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000', {
+    const socketUrl = typeof window !== 'undefined' 
+      ? window.location.origin + '/socket'
+      : 'http://localhost:5000';
+      
+    const newSocket = io(socketUrl, {
       auth: { clientId },
       reconnection: false,
     });

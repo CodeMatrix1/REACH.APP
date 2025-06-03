@@ -1,6 +1,7 @@
 [build]
   command = "npm run build"
   publish = ".next"
+  functions = "netlify/functions"
 
 [build.environment]
   NEXT_TELEMETRY_DISABLED = "1"
@@ -9,6 +10,12 @@
   package = "@netlify/plugin-nextjs"
 
 [[redirects]]
+  from = "/socket/*"
+  to = "/.netlify/functions/socket-server"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/apiAlerts"  # Routing API calls to your serverless function
+  to = "/.netlify/functions/apiAlerts"
   status = 200
