@@ -1,7 +1,12 @@
 [build]
-  base = "/"
-  publish = "REACH-APP/.next"  # Use the .next directory (Next.js build folder)
-  functions = "netlify/functions"  # Path to your serverless functions directory
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NEXT_TELEMETRY_DISABLED = "1"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[redirects]]
   from = "/api/*"
