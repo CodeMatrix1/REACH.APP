@@ -1,0 +1,9 @@
+[build]
+  base = "/"
+  publish = "REACH-APP/.next"  # Use the .next directory (Next.js build folder)
+  functions = "netlify/functions"  # Path to your serverless functions directory
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/apiAlerts"  # Routing API calls to your serverless function
+  status = 200

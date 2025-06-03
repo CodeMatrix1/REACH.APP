@@ -1,4 +1,3 @@
-"use client";
 import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 import CategoryLocations from "./CategoryLocations";
 
@@ -16,7 +15,7 @@ const center = {
 
 function Map({ results }) {
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API}>
+    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API}> {/* Use NEXT_PUBLIC_ variable */}
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -38,4 +37,5 @@ function Map({ results }) {
     </LoadScript>
   );
 }
+
 export default Map;
