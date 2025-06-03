@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 
 // Custom Icons using online URLs
 const responderIcon = new L.Icon({
-  iconUrl: 'https://reach-app-nocode.netlify.app/responder.png',
+  iconUrl: '/responder.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
   iconSize: [38, 38],
   iconAnchor: [19, 38],
@@ -15,7 +15,7 @@ const responderIcon = new L.Icon({
 });
 
 const incidentIcon = new L.Icon({
-  iconUrl: 'https://reach-app-nocode.netlify.app/eventLoc.png',
+  iconUrl: 'eventLoc.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
   iconSize: [40, 41],
   iconAnchor: [12, 41],
@@ -134,11 +134,7 @@ const ResponderLoc = ({ incident }) => {
     const clientId = localStorage.getItem('clientId') || 'client-' + Math.random().toString(36).substr(2, 9);
     localStorage.setItem('clientId', clientId);
     
-    const socketUrl = typeof window !== 'undefined' 
-      ? window.location.origin + '/socket'
-      : 'http://localhost:5000';
-      
-    const newSocket = io(socketUrl, {
+    const newSocket = io('http://localhost:5000', {
       auth: { clientId },
       reconnection: false,
     });
